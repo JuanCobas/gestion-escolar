@@ -16,6 +16,8 @@ El siguiente proyecto en Laravel requiere de los siguientes pasos para su instal
 
 -Dentro de la carpeta de XAMPP nuevamente, buscar la carpeta htdocs. En dicha carpeta abrir una línea de comandos de Git Bash.
 
+-Ingresar el comando "composer global require laravel/installer"
+
 -Ingresar el comando sin comillas "git clone https://github.com/JuanCobas/gestion-escolar".
 
 -Con el proyecto clonado, busque el archivo ".env.example" y modifiquelo borrando ".example" quedando ".env". En dicho archivo debera configurar su coneccion a la base de datos. En este caso, ya debería estar listo para conectarse a su base de datos local de XAMPP con el nombre de "admin_escuela"

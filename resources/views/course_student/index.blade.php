@@ -41,23 +41,24 @@
         <!-- Botón "Registrar Nueva Inscripción" -->
         <a href="{{ route('course-student.create') }}" class="btn btn-primary">Registrar Nueva Inscripción</a>
 
-        <!-- Formulario independiente para generar el informe PDF -->
-        <form action="{{ route('course-student.report.pdf') }}" method="GET">
-            <!-- Campos de Filtros (Opcionales) -->
-            <input type="hidden" name="student_name" value="{{ request('student_name') }}">
-            <input type="hidden" name="subject_name" value="{{ request('subject_name') }}">
-            <input type="hidden" name="course_name" value="{{ request('course_name') }}">
-            <input type="hidden" name="commission_name" value="{{ request('commission_name') }}">
-            <button type="submit" class="btn btn-success">Generar Informe</button>
-        </form>
-
-        <form action="{{ route('course-student.report.excel') }}" method="GET" class="d-inline">
-            <input type="hidden" name="student_name" value="{{ request('student_name') }}">
-            <input type="hidden" name="subject_name" value="{{ request('subject_name') }}">
-            <input type="hidden" name="course_name" value="{{ request('course_name') }}">
-            <input type="hidden" name="commission_name" value="{{ request('commission_name') }}">
-            <button type="submit" class="btn btn-success">Generar Excel</button>
-        </form>
+        <!-- Botones "Generar Informe" y "Generar Excel" -->
+        <div class="d-flex gap-2">
+            <form action="{{ route('course-student.report.pdf') }}" method="GET">
+                <!-- Campos de Filtros (Opcionales) -->
+                <input type="hidden" name="student_name" value="{{ request('student_name') }}">
+                <input type="hidden" name="subject_name" value="{{ request('subject_name') }}">
+                <input type="hidden" name="course_name" value="{{ request('course_name') }}">
+                <input type="hidden" name="commission_name" value="{{ request('commission_name') }}">
+                <button type="submit" class="btn btn-success">Generar Informe PDF</button>
+            </form>
+            <form action="{{ route('course-student.report.excel') }}" method="GET">
+                <input type="hidden" name="student_name" value="{{ request('student_name') }}">
+                <input type="hidden" name="subject_name" value="{{ request('subject_name') }}">
+                <input type="hidden" name="course_name" value="{{ request('course_name') }}">
+                <input type="hidden" name="commission_name" value="{{ request('commission_name') }}">
+                <button type="submit" class="btn btn-success">Generar Informe Excel</button>
+            </form>
+        </div>
     </div>
 
     <!-- Tabla de inscripciones -->

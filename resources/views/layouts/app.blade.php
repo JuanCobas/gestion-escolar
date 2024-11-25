@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Administración Escolar</a>
+        <a class="navbar-brand" href="/">Administración Escolar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -56,16 +56,30 @@
                         <a class="nav-link" href="{{ route('course-student.index') }}">Inscripciones de Estudiantes</a>
                     </li>
                 </ul>
+
                 <!-- Menú de usuario -->
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Salir
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </li>
+                    @auth
+                        <!-- Mostrar "Salir" solo si el usuario está autenticado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Salir
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </li>
+                    @endauth
+
+                    @guest
+                        <!-- Mostrar Login y Registro si el usuario no está autenticado -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </nav>

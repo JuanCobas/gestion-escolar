@@ -12,6 +12,7 @@ use App\Http\Controllers\CourseStudentController;
 use App\Http\Controllers\CommissionProfessorController;
 use App\Http\Controllers\ReportController;
 
+Route::middleware(['auth'])->group(function () {
 // Rutas para Estudiantes
 Route::resource('students', StudentController::class);
 // Ruta adicional para filtrar estudiantes
@@ -51,6 +52,7 @@ Route::get('commission-professor/{commission}/{professor}/edit', [CommissionProf
 Route::put('commission-professor/{commission}/{professor}', [CommissionProfessorController::class, 'update'])->name('commission-professor.update');
 Route::get('commission-professor/export/pdf', [CommissionProfessorController::class, 'exportPDF'])->name('commission-professor.export.pdf');
 Route::get('commission-professor/export/excel', [CommissionProfessorController::class, 'exportExcel'])->name('commission-professor.export.excel');
+});
 
 Route::get('/', function () {
     return view('welcome');

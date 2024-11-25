@@ -6,7 +6,7 @@
     
     <!-- Formulario de filtros -->
     <form method="GET" action="{{ route('commissions.index') }}" class="mb-4">
-        <div class="row">
+        <div class="row g-3 align-items-end">
             <div class="col-md-3">
                 <label for="course_id" class="form-label">Curso</label>
                 <select name="course_id" id="course_id" class="form-select">
@@ -26,19 +26,22 @@
                 <label for="end_time" class="form-label">Horario de fin</label>
                 <input type="time" name="end_time" id="end_time" class="form-control" value="{{ request('end_time') }}">
             </div>
-            <div class="col-md-3 d-flex align-items-end">
+            <div class="col-md-3 d-flex justify-content-end gap-2">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
+                <a href="{{ route('commissions.index') }}" class="btn btn-secondary">Limpiar</a>
             </div>
         </div>
     </form>
     
+    <!-- Botón "Agregar Comisión" -->
     <a href="{{ route('commissions.create') }}" class="btn btn-primary mb-3">Agregar Comisión</a>
     
+    <!-- Tabla de comisiones -->
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Comision</th>
+                <th>Comisión</th>
                 <th>Aula</th>
                 <th>Horario</th>
                 <th>Curso</th>
@@ -47,24 +50,28 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($commissions as $commission)
-            <tr>
-                <td>{{ $commission->id }}</td>
-                <td>{{ $commission->name }}</td>
-                <td>{{ $commission->aula }}</td>
-                <td>{{ $commission->horario }}</td>
-                <td>{{ $commission->course->name }}</td>
-                <td>{{ $commission->course->subject->name }}</td> <!-- Mostrar materia asociada -->
-                <td>
-                    <a href="{{ route('commissions.edit', $commission) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="{{ route('commissions.destroy', $commission) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro?')">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
+            @forelse ($commissions as $commission)
+                <tr>
+                    <td>{{ $commission->id }}</td>
+                    <td>{{ $commission->name }}</td>
+                    <td>{{ $commission->aula }}</td>
+                    <td>{{ $commission->horario }}</td>
+                    <td>{{ $commission->course->name }}</td>
+                    <td>{{ $commission->course->subject->name }}</td> <!-- Mostrar materia asociada -->
+                    <td>
+                        <a href="{{ route('commissions.edit', $commission) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <form action="{{ route('commissions.destroy', $commission) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro?')">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="7" class="text-center">No se encontraron comisiones.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

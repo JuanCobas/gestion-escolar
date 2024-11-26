@@ -5,6 +5,7 @@ Proyecto de Sistema de Gestion Escolar para Laboratorio 4 de TUP Frre
 
 - Docente: Placido Maidana
 - Alumnos: 
+
            Bejarano, Federico - Leg: 28237
 
            Cobas, Juan Estanislao - Leg: 27980

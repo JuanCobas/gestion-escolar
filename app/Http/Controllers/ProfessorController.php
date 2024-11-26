@@ -10,18 +10,18 @@ class ProfessorController extends Controller
 {
     public function index(Request $request)
     {
-        // Iniciar la consulta para obtener los profesores
+        
         $query = Professor::query();
 
-        // Filtrar por nombre si se pasa el parámetro 'name' en la solicitud
+        
         if ($request->has('name') && $request->name != '') {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
-        // Obtener los profesores filtrados
+        
         $professors = $query->get();
 
-        // Pasar los datos a la vista
+        
         return view('professors.index', compact('professors'));
     }
 

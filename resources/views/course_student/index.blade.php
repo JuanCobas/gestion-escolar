@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Inscripciones de Estudiantes a Cursos</h1>
 
-    <!-- Formulario de filtros -->
+    
     <form action="{{ route('course-student.index') }}" method="GET" class="mb-4">
         <div class="row g-3 align-items-center">
             <div class="col-md-3">
@@ -36,15 +36,15 @@
         </div>
     </form>
 
-    <!-- Botones de acciones principales -->
+    
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <!-- Botón "Registrar Nueva Inscripción" -->
+        
         <a href="{{ route('course-student.create') }}" class="btn btn-primary">Registrar Nueva Inscripción</a>
 
-        <!-- Botones "Generar Informe" y "Generar Excel" -->
+        
         <div class="d-flex gap-2">
             <form action="{{ route('course-student.report.pdf') }}" method="GET">
-                <!-- Campos de Filtros (Opcionales) -->
+                
                 <input type="hidden" name="student_name" value="{{ request('student_name') }}">
                 <input type="hidden" name="subject_name" value="{{ request('subject_name') }}">
                 <input type="hidden" name="course_name" value="{{ request('course_name') }}">
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <!-- Tabla de inscripciones -->
+    
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>

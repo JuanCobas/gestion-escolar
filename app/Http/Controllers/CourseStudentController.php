@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
 //use App\Exports\EnrollmentsExport;
-use PhpOffice\PhpSpreadsheet\Spreadsheet; // Importa la clase Spreadsheet
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx; // Importa la clase Writer\Xlsx
+use PhpOffice\PhpSpreadsheet\Spreadsheet; 
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx; 
 
 class CourseStudentController extends Controller
 {
@@ -31,7 +31,7 @@ class CourseStudentController extends Controller
             'commissions.horario as horario'
         );
 
-    // Aplicar filtros basados en los parámetros enviados
+    
     if ($request->filled('student_name')) {
         $query->where('students.name', 'like', '%' . $request->student_name . '%');
     }
@@ -54,7 +54,7 @@ class CourseStudentController extends Controller
 {
     $students = Student::all();
 
-    // Obtener las comisiones con los nombres de los cursos y materias relacionados
+    
     $commissions = Commission::with('course.subject')->get();
 
     return view('course_student.create', compact('students', 'commissions'));
@@ -67,11 +67,11 @@ public function store(Request $request)
         'commission_id' => 'required|exists:commissions,id',
     ]);
 
-    // Obtener el curso asociado a la comisión seleccionada
+    
     $commission = Commission::findOrFail($request->commission_id);
     $course_id = $commission->course_id;
 
-    // Verificar si ya existe la inscripción
+    
     $exists = DB::table('course_student')
         ->where('student_id', $request->student_id)
         ->where('course_id', $course_id)
@@ -82,7 +82,7 @@ public function store(Request $request)
         return redirect()->back()->withErrors(['error' => 'El estudiante ya está inscrito en este curso y comisión.']);
     }
 
-    // Insertar los datos en la tabla `course_student`
+    
     DB::table('course_student')->insert([
         'student_id' => $request->student_id,
         'course_id' => $course_id,
@@ -110,23 +110,23 @@ public function update(Request $request, $id)
         'commission_id' => 'required|exists:commissions,id',
     ]);
 
-    // Obtener el curso asociado a la comisión seleccionada
+    
     $commission = Commission::findOrFail($request->commission_id);
     $course_id = $commission->course_id;
 
-    // Verificar si la inscripción ya existe, ignorando el registro actual
+    
     $exists = DB::table('course_student')
         ->where('student_id', $request->student_id)
         ->where('course_id', $course_id)
         ->where('commission_id', $request->commission_id)
-        ->where('id', '!=', $id) // Ignorar el registro actual
+        ->where('id', '!=', $id) 
         ->exists();
 
     if ($exists) {
         return redirect()->back()->withErrors(['error' => 'El estudiante ya está inscrito en este curso y comisión.']);
     }
 
-    // Actualizar los datos en la tabla `course_student`
+    
     DB::table('course_student')->where('id', $id)->update([
         'student_id' => $request->student_id,
         'course_id' => $course_id,
@@ -151,7 +151,7 @@ public function update(Request $request, $id)
     $subjectName = $request->input('subject_name');
     $commissionName = $request->input('commission_name');
 
-    // Realizar la consulta con filtros
+    
     $enrollments = DB::table('course_student')
         ->join('students', 'course_student.student_id', '=', 'students.id')
         ->join('courses', 'course_student.course_id', '=', 'courses.id')
@@ -172,23 +172,23 @@ public function update(Request $request, $id)
         })
         ->get();
 
-    // Agrupar las inscripciones por estudiante
+    
     $enrollmentsGrouped = $enrollments->groupBy('student_name');
 
-    // Generar el PDF
+    
     $pdf = PDF::loadView('course_student.report', compact('enrollmentsGrouped'));
 
-    // Descargar el PDF
+    
     return $pdf->download('informe_inscripciones.pdf');
 }
 
 public function exportToExcel(Request $request)
 {
-    // Crear una nueva instancia de Spreadsheet
+    
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
 
-    // Configurar los encabezados de las columnas
+    
     $sheet->setCellValue('A1', 'ID')
           ->setCellValue('B1', 'Nombre del Estudiante')
           ->setCellValue('C1', 'Materia')
@@ -197,7 +197,7 @@ public function exportToExcel(Request $request)
           ->setCellValue('F1', 'Aula')
           ->setCellValue('G1', 'Horario');
 
-    // Realizar la consulta con los filtros
+    
     $query = DB::table('course_student')
         ->join('students', 'course_student.student_id', '=', 'students.id')
         ->join('courses', 'course_student.course_id', '=', 'courses.id')
@@ -213,7 +213,7 @@ public function exportToExcel(Request $request)
             'commissions.horario as horario'
         );
 
-    // Aplicar filtros si es necesario
+    
     if ($request->filled('student_name')) {
         $query->where('students.name', 'like', '%' . $request->student_name . '%');
     }
@@ -227,11 +227,11 @@ public function exportToExcel(Request $request)
         $query->where('commissions.name', 'like', '%' . $request->commission_name . '%');
     }
 
-    // Obtener los resultados
+    
     $data = $query->get();
 
-    // Escribir los datos en las filas
-    $row = 2; // Empezamos en la segunda fila para los datos
+    
+    $row = 2; 
     foreach ($data as $item) {
         $sheet->setCellValue('A' . $row, $item->id)
               ->setCellValue('B' . $row, $item->student_name)
@@ -243,10 +243,10 @@ public function exportToExcel(Request $request)
         $row++;
     }
 
-    // Crear el archivo Excel
+    
     $writer = new Xlsx($spreadsheet);
 
-    // Descargar el archivo
+    
     $fileName = 'inscripciones.xlsx';
     return response()->stream(
         function () use ($writer) {

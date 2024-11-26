@@ -7,7 +7,7 @@
         @csrf
         @method('PUT')
 
-        <!-- Selector de Estudiante -->
+        
         <div class="mb-3">
             <label for="student_id" class="form-label">Estudiante</label>
             <select name="student_id" id="student_id" class="form-select" required>
@@ -21,7 +21,7 @@
             <div class="invalid-feedback">Por favor, seleccione un estudiante.</div>
         </div>
 
-        <!-- Selector de Comisión -->
+        
         <div class="mb-3">
             <label for="commission_id" class="form-label">Comisión</label>
             <select name="commission_id" id="commission_id" class="form-select" required>
@@ -39,7 +39,7 @@
             <div class="invalid-feedback">Por favor, seleccione una comisión.</div>
         </div>
 
-        <!-- Botones -->
+        
         <button type="submit" class="btn btn-success">Actualizar</button>
         <a href="{{ route('course-student.index') }}" class="btn btn-secondary">Volver</a>
     </form>

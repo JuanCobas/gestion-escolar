@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Cursos</h1>
 
-    <!-- Formulario de filtros -->
+    
     <form action="{{ route('courses.index') }}" method="GET" class="mb-4">
         <div class="row g-3 align-items-center">
             <div class="col-md-6">
@@ -26,15 +26,15 @@
         </div>
     </form>
 
-    <!-- Botones de acciones principales -->
+    
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <!-- Botón "Agregar Curso" -->
+        
         <a href="{{ route('courses.create') }}" class="btn btn-primary">Agregar Curso</a>
 
-        <!-- Botones "Generar Informe" y "Exportar Excel" -->
+        
         <div class="d-flex gap-2">
             <form action="{{ route('courses.pdf') }}" method="GET">
-                <!-- Campo de filtro (opcional) -->
+                
                 <input type="hidden" name="subject_id" value="{{ request('subject_id') }}">
                 <button type="submit" class="btn btn-success">Generar Informe PDF</button>
             </form>
@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <!-- Tabla de cursos -->
+    
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>

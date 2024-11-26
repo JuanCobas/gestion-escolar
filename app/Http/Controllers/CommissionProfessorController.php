@@ -15,7 +15,7 @@ class CommissionProfessorController extends Controller
     {
         $query = Commission::with(['professors', 'course.subject']);
     
-        // Aplicar filtros si los parámetros están presentes
+        
         if ($request->has('professor_name') && $request->professor_name != '') {
             $query->whereHas('professors', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->professor_name . '%');
@@ -45,7 +45,7 @@ class CommissionProfessorController extends Controller
 
     public function create()
     {
-        // Cargar comisiones y profesores para la vista
+        
         $commissions = Commission::all();
         $professors = Professor::all();
 
@@ -59,7 +59,7 @@ class CommissionProfessorController extends Controller
             'professor_id' => 'required|exists:professors,id',
         ]);
 
-        // Encontrar la comisión y asignar el profesor
+        
         $commission = Commission::findOrFail($request->commission_id);
         $commission->professors()->syncWithoutDetaching($request->professor_id);
 
@@ -88,10 +88,10 @@ class CommissionProfessorController extends Controller
         'professor_id' => 'required|exists:professors,id',
     ]);
 
-    // Buscar la comisión y actualizar el profesor asignado
+    
     $commission = Commission::findOrFail($commission_id);
-    $commission->professors()->detach($professor_id); // Eliminar la asignación anterior
-    $commission->professors()->syncWithoutDetaching($request->professor_id); // Agregar la nueva asignación
+    $commission->professors()->detach($professor_id); 
+    $commission->professors()->syncWithoutDetaching($request->professor_id); 
 
     return redirect()->route('commission-professor.index')->with('success', 'Asignación actualizada correctamente.');
     }
@@ -99,7 +99,7 @@ class CommissionProfessorController extends Controller
 
     public function destroy($commission_id, $professor_id)
     {
-        // Encontrar la comisión y desvincular el profesor
+        
         $commission = Commission::findOrFail($commission_id);
         $commission->professors()->detach($professor_id);
 
@@ -108,7 +108,7 @@ class CommissionProfessorController extends Controller
 
     public function exportPDF(Request $request)
     {
-        // Obtener datos filtrados
+        
         $query = Commission::with(['professors', 'course.subject']);
         if ($request->filled('professor_name')) {
             $query->whereHas('professors', function ($q) use ($request) {
@@ -131,16 +131,16 @@ class CommissionProfessorController extends Controller
 
         $assignments = $query->get();
 
-        // Renderizar la vista del PDF
+       
         $pdf = PDF::loadView('commission_professor.pdf', compact('assignments'));
 
-        // Descargar el archivo
+        
         return $pdf->download('Commissions_Professors_Report.pdf');
     }
 
     public function exportExcel(Request $request)
     {
-        // Obtener datos filtrados
+        
         $query = Commission::with(['professors', 'course.subject']);
         if ($request->filled('professor_name')) {
             $query->whereHas('professors', function ($q) use ($request) {
@@ -163,12 +163,12 @@ class CommissionProfessorController extends Controller
 
         $assignments = $query->get();
 
-        // Crear hoja de cálculo
+        
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Commissions & Professors');
 
-        // Encabezados
+        
         $sheet->setCellValue('A1', 'ID')
             ->setCellValue('B1', 'Comisión')
             ->setCellValue('C1', 'Curso')
@@ -177,7 +177,7 @@ class CommissionProfessorController extends Controller
             ->setCellValue('F1', 'Aula')
             ->setCellValue('G1', 'Profesores');
 
-        // Agregar datos
+        
         $row = 2;
         foreach ($assignments as $assignment) {
             $sheet->setCellValue("A{$row}", $assignment->id)
@@ -190,7 +190,7 @@ class CommissionProfessorController extends Controller
             $row++;
         }
 
-        // Descargar el archivo
+        
         $writer = new Xlsx($spreadsheet);
         $filename = 'Commissions_Professors_Report.xlsx';
 

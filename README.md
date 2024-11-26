@@ -16,13 +16,15 @@ El siguiente proyecto en Laravel requiere de los siguientes pasos para su instal
 
 -Dentro de la carpeta de XAMPP nuevamente, buscar la carpeta htdocs. En dicha carpeta abrir una línea de comandos de Git Bash.
 
--Ingresar el comando "composer global require laravel/installer"
+-Ingresar el comando "composer global require laravel/installer".
 
 -Ingresar el comando sin comillas "git clone https://github.com/JuanCobas/gestion-escolar".
 
 -Con el proyecto clonado, busque el archivo ".env.example" y modifiquelo borrando ".example" quedando ".env". En dicho archivo debera configurar su coneccion a la base de datos. En este caso, ya debería estar listo para conectarse a su base de datos local de XAMPP con el nombre de "admin_escuela"
 
--Nuevamente en Git Bash ingrese el comando "composer install", el cual instalara todas las dependencias necesarias.
+-Nuevamente en Git Bash ingrese el comando "composer install", el cual instalara todas las dependencias de php necesarias.
+
+-Luego ingrese el siguiente comando "npm install". Cuando termine de cargar, ingrese "npm run dev". Luego apretar "ctrl + c".
 
 -Una vez terminado, deberá realizar las migraciones y correr el seed para cargar la base de datos. Utilice el comando "php artisan migrate --seed". Si desea hacer una migración desde cero, puede utilizar el comando "php artisan migrate:fresh --seed".
 

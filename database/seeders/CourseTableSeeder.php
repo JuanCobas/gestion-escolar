@@ -16,7 +16,7 @@ class CourseTableSeeder extends Seeder
         $subjects = Subject::all();
 
         foreach ($subjects as $subject) {
-            // Crear entre 3 y 5 cursos por materia
+            
             foreach (range(1, rand(3, 5)) as $index) {
                 Course::create([
                     'name' => $faker->word,

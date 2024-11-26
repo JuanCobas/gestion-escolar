@@ -11,14 +11,14 @@ class CommissionController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Commission::with('course.subject'); // Relación con la materia
+        $query = Commission::with('course.subject'); 
 
-        // Filtro por curso
+        
         if ($request->has('course_id') && $request->course_id != '') {
             $query->where('course_id', $request->course_id);
         }
 
-        // Filtro por horario entre dos horarios
+        
         if ($request->has('start_time') && $request->has('end_time') && $request->start_time != '' && $request->end_time != '') {
             $query->whereBetween('horario', [$request->start_time, $request->end_time]);
         }

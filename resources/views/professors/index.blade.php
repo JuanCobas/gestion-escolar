@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Profesores</h1>
 
-    <!-- Formulario de filtro por nombre -->
+    
     <form action="{{ route('professors.index') }}" method="GET" class="mb-4">
         <div class="row g-3 align-items-end">
             <div class="col-md-8">
@@ -17,10 +17,10 @@
         </div>
     </form>
 
-    <!-- Botón "Agregar Profesor" -->
+    
     <a href="{{ route('professors.create') }}" class="btn btn-primary mb-3">Agregar Profesor</a>
 
-    <!-- Tabla de profesores -->
+    
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>

@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Comisiones</h1>
     
-    <!-- Formulario de filtros -->
+    
     <form method="GET" action="{{ route('commissions.index') }}" class="mb-4">
         <div class="row g-3 align-items-end">
             <div class="col-md-3">
@@ -33,10 +33,10 @@
         </div>
     </form>
     
-    <!-- Botón "Agregar Comisión" -->
+    
     <a href="{{ route('commissions.create') }}" class="btn btn-primary mb-3">Agregar Comisión</a>
     
-    <!-- Tabla de comisiones -->
+    
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>
@@ -57,7 +57,7 @@
                     <td>{{ $commission->aula }}</td>
                     <td>{{ $commission->horario }}</td>
                     <td>{{ $commission->course->name }}</td>
-                    <td>{{ $commission->course->subject->name }}</td> <!-- Mostrar materia asociada -->
+                    <td>{{ $commission->course->subject->name }}</td>
                     <td>
                         <a href="{{ route('commissions.edit', $commission) }}" class="btn btn-warning btn-sm">Editar</a>
                         <form action="{{ route('commissions.destroy', $commission) }}" method="POST" class="d-inline">

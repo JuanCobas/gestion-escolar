@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h1 class="mb-4">Lista de Estudiantes</h1>
 
-    <!-- Formulario de búsqueda -->
+    
     <form action="{{ route('students.index') }}" method="GET" class="mb-4">
         <div class="row g-3 align-items-end">
             <div class="col-md-8">
@@ -17,10 +17,10 @@
         </div>
     </form>
 
-    <!-- Botón para agregar estudiantes -->
+    
     <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Agregar Estudiante</a>
 
-    <!-- Tabla de estudiantes -->
+    
     <table class="table table-striped">
         <thead class="table-dark">
             <tr>

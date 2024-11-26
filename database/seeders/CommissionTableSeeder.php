@@ -16,7 +16,7 @@ class CommissionTableSeeder extends Seeder
         $courses = Course::all();
 
         foreach ($courses as $course) {
-            // Crear entre 1 y 3 comisiones por curso
+            
             foreach (range(1, rand(1, 3)) as $index) {
                 Commission::create([
                     'name' => $faker->word,

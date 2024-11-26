@@ -15,7 +15,7 @@ class CourseController extends Controller
     {
         $query = Course::with('subject');
 
-        // Filtrar por materia
+        
         if ($request->has('subject_id') && $request->subject_id != '') {
             $query->where('subject_id', $request->subject_id);
         }
@@ -72,7 +72,7 @@ class CourseController extends Controller
 
     public function generatePdf(Request $request)
     {
-        // Consulta los cursos con la materia asociada y aplica el filtro si corresponde
+        
         $query = Course::with('subject');
 
         if ($request->has('subject_id') && $request->subject_id != '') {
@@ -81,10 +81,10 @@ class CourseController extends Controller
 
         $courses = $query->get();
 
-        // Agrupa los cursos por materia
+        
         $groupedCourses = $courses->groupBy('subject.name');
 
-        // Genera el PDF
+        
         $pdf = \PDF::loadView('courses.pdf', compact('groupedCourses'));
 
         return $pdf->download('lista_cursos.pdf');
@@ -94,24 +94,24 @@ class CourseController extends Controller
     {
         $query = Course::with('subject');
 
-        // Aplicar filtros
+        
         if ($request->has('subject_id') && $request->subject_id != '') {
             $query->where('subject_id', $request->subject_id);
         }
 
         $courses = $query->get();
 
-        // Crear una hoja de cálculo
+        
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle('Cursos');
 
-        // Encabezados
+        
         $sheet->setCellValue('A1', 'ID');
         $sheet->setCellValue('B1', 'Nombre del Curso');
         $sheet->setCellValue('C1', 'Materia');
 
-        // Contenido
+        
         $row = 2;
         foreach ($courses as $course) {
             $sheet->setCellValue("A{$row}", $course->id);
@@ -120,7 +120,7 @@ class CourseController extends Controller
             $row++;
         }
 
-        // Descargar archivo Excel
+        
         $writer = new Xlsx($spreadsheet);
         $filename = 'cursos.xlsx';
 

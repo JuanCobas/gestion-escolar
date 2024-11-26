@@ -40,10 +40,10 @@
     </div>
 
     @foreach ($enrollmentsGrouped as $studentName => $enrollments)
-        <!-- Encabezado del estudiante -->
+        
         <div class="student-header">{{ $studentName }}</div>
 
-        <!-- Tabla de inscripciones del estudiante -->
+        
         <table>
             <thead>
                 <tr>
